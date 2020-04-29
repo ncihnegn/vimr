@@ -8,14 +8,17 @@ readonly deployment_target_file="./resources/macos_deployment_target.txt"
 readonly deployment_target=$(cat ${deployment_target_file})
 readonly code_sign=${code_sign:?"true or false"}
 readonly use_carthage_cache=${use_carthage_cache:?"true or false"}
+readonly carthage_update=${carthage_update:?"true or false"}
 readonly build_path="./build"
 
 # Carthage often crashes => do it at the beginning.
-echo "### Updating carthage"
-if [[ ${use_carthage_cache} == true ]]; then
-    carthage update --cache-builds --platform macos
-else
-    carthage update --platform macos
+if [[ ${carthage_update} == true ]]; then
+  echo "### Updating carthage"
+  if [[ ${use_carthage_cache} == true ]]; then
+      carthage update --cache-builds --platform macos
+  else
+      carthage update --platform macos
+  fi
 fi
 
 # Build NeoVim
