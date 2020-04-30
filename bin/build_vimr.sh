@@ -47,7 +47,6 @@ pushd NvimView/neovim
     ../../bin/build_libnvim.sh
 
     echo "### Copying runtime"
-    rm -rf runtime
     cp -r /tmp/nvim-runtime/share/nvim/runtime .
 popd > /dev/null
 
