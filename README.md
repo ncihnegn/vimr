@@ -67,7 +67,7 @@ First install `homebrew`, then in the project root:
 xcode-select --install # install the Xcode command line tools, if you haven't already
 brew bundle
 
-code_sign=false use_carthage_cache=false ./bin/build_vimr.sh # VimR.app will be placed in build/Build/Products/Release/
+code_sign=false carthage_update=true use_carthage_cache=false ./bin/build_vimr.sh # VimR.app will be placed in build/Build/Products/Release/
 ```
 
 If the build fails for some reason, do the following and build again:
