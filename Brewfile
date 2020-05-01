@@ -7,6 +7,5 @@ brew 'cmake'
 brew 'pkg-config'
 brew 'gettext'
 brew 'ninja'
-brew 'coreutils'
 
-brew 'python3'
+brew 'python'
