@@ -7,22 +7,22 @@
     <description>Most recent changes with links to updates for VimR.</description>
     <language>en</language>
     <item>
-      <title>SNAPSHOT-347</title>
+      <title>SNAPSHOT-350</title>
       <description><![CDATA[
     <ul>
-<li>Improve drawing performance.</li>
+<li>GH-799: Bugfix: VimR sometimes uses High-CPU usage for apparent reason.</li>
 </ul>
   ]]></description>
       <releaseNotesLink>
-        https://github.com/qvacua/vimr/releases/tag/snapshot/347
+        https://github.com/qvacua/vimr/releases/tag/snapshot/350
       </releaseNotesLink>
-      <pubDate>2020-03-10T21:36:52.552729</pubDate>
+      <pubDate>2020-06-19T17:40:04.224911</pubDate>
       <minimumSystemVersion>10.12.0</minimumSystemVersion>
-      <enclosure url="https://github.com/qvacua/vimr/releases/download/snapshot/347/VimR-SNAPSHOT-347.tar.bz2"
-                 sparkle:version="347"
-                 sparkle:shortVersionString="SNAPSHOT-347"
-                 sparkle:dsaSignature="MCwCFFJBf//mmjwwPtTUwsMwxcfAsVOOAhQ2dOcIku8wb+DHCfQW97AKaqj7fA=="
-                 length="14983113"
+      <enclosure url="https://github.com/qvacua/vimr/releases/download/snapshot/350/VimR-SNAPSHOT-350.tar.bz2"
+                 sparkle:version="350"
+                 sparkle:shortVersionString="SNAPSHOT-350"
+                 sparkle:dsaSignature="MC4CFQC1ENaInbTw7u7miKLySk5BUh2dRwIVAOr39Sx0ILD4PgfLh1iOakzV6YpZ"
+                 length="14949725"
                  type="application/octet-stream"/>
     </item>
   </channel>
