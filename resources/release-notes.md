@@ -1,10 +1,30 @@
 # Next
 
+* ...
+
+# 0.34.0-???
+
+* Neovim 0.4.4
+* Improved pasting.
+
+# 0.33.1-354
+
+* Bugfix: The Emoji popup is sometimes misplaced.
+* GH-762: Bugfix: parinfer-rust dylib does not load.
+* Dependencies updates:
+    - PureLayout/PureLayout@3.1.6
+    - a2/MessagePack.swift@4.0.0
+    - Kentzo/ShortcutRecorder@3.2
+    - eonil/FSEvents@0.1.7
+    - Quick/Nimble@8.1.1
+
+# 0.33.0-351
+
 * GH-799: Bugfix: VimR sometimes uses High-CPU usage for apparent reason.
 * GH-775: Use the colors of the selected color scheme for the markdown preview.
 * GH-792: Use the macOS Font Panel to select the font: Thank you @apaleslimghost!
     - If you select a variable width font, the rendering will be broken.
-* GH-786: Improve space key handling which enables <c-space> to be mapped: Thank you @cypheon!
+* GH-786: Improve space key handling which enables `<c-space>` to be mapped: Thank you @cypheon!
 * Improve drawing performance.
 * Dependencies updates:
     - ggreer/the_silver_searcher@a509a81

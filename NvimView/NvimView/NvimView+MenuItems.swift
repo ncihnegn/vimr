@@ -46,7 +46,7 @@ extension NvimView {
 // MARK: - Edit Menu Items
 extension NvimView {
 
-  @IBAction func undo(_ sender: AnyObject?) {
+  @IBAction func undo(_ sender: Any?) {
     switch self.mode {
     case .insert, .replace:
       self.api
@@ -67,7 +67,7 @@ extension NvimView {
     }
   }
 
-  @IBAction func redo(_ sender: AnyObject?) {
+  @IBAction func redo(_ sender: Any?) {
     switch self.mode {
     case .insert, .replace:
       self.api
@@ -88,7 +88,7 @@ extension NvimView {
     }
   }
 
-  @IBAction func cut(_ sender: AnyObject?) {
+  @IBAction func cut(_ sender: Any?) {
     switch self.mode {
     case .visual, .normal:
       self.api
@@ -102,7 +102,7 @@ extension NvimView {
     }
   }
 
-  @IBAction func copy(_ sender: AnyObject?) {
+  @IBAction func copy(_ sender: Any?) {
     switch self.mode {
     case .visual, .normal:
       self.api
@@ -116,73 +116,19 @@ extension NvimView {
     }
   }
 
-  @IBAction func paste(_ sender: AnyObject?) {
-    guard let content = NSPasteboard.general.string(forType: .string) else {
-      return
-    }
+  @IBAction func paste(_ sender: Any?) {
+    guard let content = NSPasteboard.general.string(forType: .string) else { return }
 
-    if self.mode == .cmdlineNormal || self.mode == .cmdlineInsert || self.mode == .cmdlineReplace
-       || self.mode == .replace
-       || self.mode == .termFocus {
-      self.api
-        .input(keys: self.vimPlainString(content), errWhenBlocked: false)
-        .subscribe(onError: { error in
-          self.eventsSubject.onNext(.apiError(msg: "Could not paste \(content)", cause: error))
-        })
-        .disposed(by: self.disposeBag)
-      return
-    }
-
-    Single.zip(
-        self.api
-          .getCurrentWin()
-          .flatMap { win in self.api.winGetCursor(window: win) },
-        self.api
-          .getOption(name: "paste")
-          .flatMap { curPasteMode -> Single<Bool> in
-            if curPasteMode == false {
-              return self.api
-                .setOption(name: "paste", value: .bool(true))
-                .andThen(Single.just(true))
-            } else {
-              return Single.just(false)
-            }
-          }
-      )
-      .map { result in (column: result.0[1], pasteModeSet: result.1) }
-      .flatMap { element -> Single<Bool> in
-        switch self.mode {
-
-        case .insert:
-          let cmd = element.column == 0 ? "<ESC>\"+Pa" : "<ESC>\"+pa"
-          return self.api
-            .input(keys: cmd, errWhenBlocked: false).asCompletable()
-            .andThen(Single.just(element.pasteModeSet))
-
-        case .normal, .visual:
-          return self.api
-            .input(keys: "\"+p", errWhenBlocked: false).asCompletable()
-            .andThen(Single.just(element.pasteModeSet))
-
-        default:
-          return Single.just(element.pasteModeSet)
-
-        }
-      }
-      .flatMapCompletable { pasteModeSet -> Completable in
-        if pasteModeSet {
-          return self.api.setOption(name: "paste", value: .bool(false))
-        }
-
-        return Completable.empty()
-      }
+    // phase == 1 means paste in a single call
+    self.api
+      .paste(data: content, crlf: false, phase: -1)
       .subscribe(onError: { error in
-        self.eventsSubject.onNext(.apiError(msg: "There was an pasting.", cause: error))
+        self.eventsSubject.onNext(.apiError(msg: "Could not paste \(content)", cause: error))
       })
       .disposed(by: self.disposeBag)
   }
 
-  @IBAction func delete(_ sender: AnyObject?) {
+  @IBAction func delete(_ sender: Any?) {
     switch self.mode {
     case .normal, .visual:
       self.api
